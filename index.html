@@ -58,13 +58,11 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
   white-space: nowrap;
 }
 
-/* 메뉴 아이템 수납력 ↑ */
 #site-nav a{
   font-size: .9rem;
   padding: .3rem .5rem;
 }
 
-/* 데스크탑에서도 조금만 좁아지면 바로 햄버거로 (820px → 1180px 상향) */
 @media (max-width: 1180px){
   #nav-toggle{
     display: inline-flex;
@@ -85,15 +83,16 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
     gap: .25rem;
   }
 }
-
-/* 섹터2 그리드: 카드가 옆으로 들러붙지 않게 */
 #sector-ent .features{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap: 1.25rem;
 }
 #sector-ent .features > section{ display:block; }
-#sector-ent .features::after{ content:""; display:block; clear:both; } /* float 대비보험 */
+#sector-ent .features::after{ content:""; display:block; clear:both; }
+@media (min-width: 900px) and (max-width: 1280px){
+  #sector-ent .features p br{ display: none; }
+}
 </style>
 </head>
 <body class="is-preload">
@@ -204,7 +203,7 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
       <section id="ent-sports">
         <h3>별별 스포츠 선수단</h3>
         <p>
-          별별 스포츠 선수단 소개 문단을 넣을 자리입니다. (현재 합창단 문구가 복붙되어 있으니, 스포츠단 전용 설명으로 바꾸는 걸 추천!)
+          별별 스포츠 선수단 학진샘 부탁해요
         </p>
       </section>
 
@@ -338,3 +337,4 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
     </script>
       </body>
 </html>
+
