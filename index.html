@@ -42,6 +42,58 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
 #site-nav a, #site-nav a:visited, .subnav a, .subnav a:visited {text-decoration:none!important; border:none; box-shadow:none;}
 #site-nav a:focus-visible, .subnav a:focus-visible {outline:2px solid rgba(0,0,0,.6); outline-offset:2px;}
 .hero-img{display:block;width:100%;height:auto;border-radius:8px}
+#site-nav .nav-links{
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+}
+#site-nav .nav-links::-webkit-scrollbar{ display: none; }
+
+#site-nav .nav-links a {
+  white-space: nowrap;
+}
+
+/* 메뉴 아이템 수납력 ↑ */
+#site-nav a{
+  font-size: .9rem;
+  padding: .3rem .5rem;
+}
+
+/* 데스크탑에서도 조금만 좁아지면 바로 햄버거로 (820px → 1180px 상향) */
+@media (max-width: 1180px){
+  #nav-toggle{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 4px;
+    padding: .35rem .6rem;
+    font-size: .85rem;
+    background: #fff;
+    margin-left: auto;
+  }
+  #site-nav .nav-links{ display: none; white-space: normal; overflow: visible; }
+  #site-nav.open .nav-links{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .25rem;
+  }
+}
+
+/* 섹터2 그리드: 카드가 옆으로 들러붙지 않게 */
+#sector-ent .features{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 1.25rem;
+}
+#sector-ent .features > section{ display:block; }
+#sector-ent .features::after{ content:""; display:block; clear:both; } /* float 대비보험 */
 </style>
 </head>
 <body class="is-preload">
@@ -57,7 +109,7 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
 <a role="menuitem" href="#sector-intro">예술학교 소개</a>
 <a role="menuitem" href="#sector-ent">별별 엔터테인먼트</a>
 <a role="menuitem" href="#sector-integrated">발달종합예술학교</a>
-<a role="menuitem" href="#sector-medical">의료형 기반 대안학교</a>
+<a role="menuitem" href="#sector-medical">의료기반 예술형 대안학교</a>
 <a role="menuitem" href="#horticulture">쉼 해방 프로젝트</a>
 <a role="menuitem" href="#contact">문의</a>
 </div>
@@ -166,7 +218,8 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
 
               </p>
             </section>
-         
+           </div><!-- /.content -->
+</section><!-- /#sector-ent -->
 
       <!-- 섹터 3: 발달종합예술학교 (기존 '발달장애 예술학교' 블록을 독립 섹션으로) -->
       <section id="sector-integrated">
@@ -209,7 +262,7 @@ border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: .45rem .7re
       <!-- 섹터 4: 레인보우예술학교 의료형 기반 (새로운 프레이밍, 기존 서술 유지 확장) -->
       <section id="sector-medical">
         <header>
-          <h2>레인보우예술학교 의료형 기반</h2>
+          <h2>의료기반&nbsp;예술형&nbsp;대안학교</h2>
           <p>병원-학교-가정 연계를 중심으로 한 원스톱 시스템, 임상 협진 및 안전 프로토콜 기반 운영</p>
         </header>
         <div class="content">
