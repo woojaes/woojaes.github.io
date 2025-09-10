@@ -167,7 +167,40 @@
 #site-nav .nav-links a{
   white-space: nowrap !important;
 }
+/* 1) 사파리에서 드롭다운이 왼쪽까지 퍼지는 것 방지
+      - open 상태일 때 링크 묶음이 '내용만큼(inline-flex)'만 차지하게 */
+@media (max-width:1180px){
+  .rc #rc-nav.rc-open #rc-links{
+    display: inline-flex;               /* 핵심: inline-flex → 내용 너비만큼만 */
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .35rem;
+    width: auto;
+    max-width: 92vw;                    /* 화면 밖으로는 못 나가게 */
+  }
+}
 
+.rc #rc-links a{
+  display: inline-flex;
+  align-items: center;
+  padding: .55rem .9rem;
+  border-radius: 12px;
+
+  white-space: nowrap !important;       /* 줄바꿈 금지(최우선) */
+  word-break: keep-all !important;      /* 한글 단어 중간 쪼개기 금지 */
+  overflow-wrap: normal !important;     /* 줄바꿈 힌트 해제 */
+  word-wrap: normal !important;         /* 레거시 해제 */
+  -webkit-hyphens: none !important;     /* 하이픈 끄기 */
+  hyphens: none !important;
+
+  min-width: 0;                        
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;             
+}
+
+
+#site-nav .nav-links a{ white-space: nowrap !important; }
   </style>
 </head>
 <body class="rc">
