@@ -166,27 +166,158 @@
 
 /* iOS Safari가 글자 임의 확대하는 것 방지 */
 html { -webkit-text-size-adjust: 100%; }
+
+/* iOS 글자 임의확대 방지 */
+html { -webkit-text-size-adjust: 100%; }
+
+/* 데스크톱: 기존대로 플렉스 */
+.rc #rc-nav .rc-nav-inner { display:flex; align-items:center; gap:.5rem; }
+
+/* 모바일(≤1180px): 2열 그리드로 고정
+   - 1열: 토글(왼쪽 고정)
+   - 2열: 브랜드 + 드롭다운(오른쪽 칸만 사용) */
+@media (max-width:1180px){
+  .rc #rc-nav .rc-nav-inner{
+    display:grid;
+    grid-template-columns: auto 1fr;   /* 왼쪽 좁게(토글), 오른쪽 넓게(브랜드+메뉴) */
+    align-items:start;
+    gap:.5rem;
+    min-width:0;                       /* Safari 수축 허용 */
+  }
+
+  /* 토글은 1열(왼쪽), 브랜드/메뉴는 2열(오른쪽) */
+  #rc-toggle{ grid-column:1; }
+  .rc .rc-brand{ grid-column:2; justify-self:start; }
+
+  /* 기본은 감춤 */
+  .rc #rc-links{ display:none; grid-column:2; justify-self:end; }
+
+  /* 펼친 상태: 오른쪽 칸 안에서만 세로로 펼침 (왼쪽 침범 불가) */
+  .rc #rc-nav.rc-open #rc-links{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:.35rem;
+
+    width:100%;
+    max-width:min(92vw, 420px);         /* 화면 밖 방지 */
+    min-width:0;                         /* Safari 수축 허용 */
+  }
+}
+
+/* 메뉴 아이템: 한 줄 고정 + 말줄임 (사파리 한글 쪼개기 방지) */
+.rc #rc-links a{
+  display:inline-flex; align-items:center;
+  padding:.55rem .9rem; border-radius:12px;
+
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+  overflow-wrap:normal !important; word-wrap:normal !important;
+  -webkit-hyphens:none !important; hyphens:none !important;
+
+  min-width:0; max-width:100%;
+  overflow:hidden; text-overflow:ellipsis;
+}
+
+/* 메뉴/헤더 링크 밑줄/테두리 제거(이미 넣었어도 중복 OK) */
+#rc-links a,
+.rc a, .rc a:visited{
+  border:none !important;
+  box-shadow:none !important;
+  text-decoration:none !important;
+}
+
+/* 외부 템플릿이 wrap 강제할 때 무력화 */
+#site-nav .nav-links a{ white-space:nowrap !important; }
+.rc #rc-nav .rc-nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* 좌우 배치 */
+  gap:.5rem;
+  min-width:0;
+}
+
+/* 토글 기본 */
+#rc-toggle{
+  display:none;
+  margin-left:auto; /* 항상 오른쪽 끝 */
+}
+
+/* 데스크톱: 메뉴는 가로로 */
+.rc #rc-links{
+  display:flex;
+  align-items:center;
+  gap:.35rem;
+  white-space:nowrap;
+  overflow-x:hidden;
+}
+
+/* 모바일: 토글만 보이고 메뉴는 숨김 */
+@media (max-width:1180px){
+  #rc-toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(0,0,0,.2);
+    border-radius:6px;
+    padding:.35rem .6rem;
+    font-size:.85rem;
+    background:#fff;
+  }
+
+  .rc #rc-links{ display:none; }
+  .rc #rc-nav.rc-open #rc-links{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:.35rem;
+    position:absolute;
+    top:100%; right:0;   /* 토글 바로 아래 오른쪽 정렬 */
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+    padding:.6rem;
+    max-width:92vw;
+  }
+}
+
+/* 메뉴 아이템 줄바꿈 방지 */
+.rc #rc-links a{
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
   </style>
 </head>
 <body class="rc">
   <div id="rc-app">
 
     <!-- NAV -->
-    <nav id="rc-nav" aria-label="주요 메뉴">
-      <div class="rc-nav-inner">
-        <a href="#home" class="rc-brand"><img src="images/logo.jpg" alt="RAINBOW 로고" />RAINBOW ARTS CENTER</a>
-        <button id="rc-toggle" aria-expanded="false" aria-controls="rc-links" aria-label="메뉴 열기">≡</button>
-        <div id="rc-links" class="rc-links" role="menubar">
-          <a role="menuitem" href="#sector-intro">예술센터 소개</a>
-          <a role="menuitem" href="#music-therapy">음악치료 프로그램</a>
-          <a role="menuitem" href="#sector-ent">별별 엔터테인먼트</a>
-          <a role="menuitem" href="#sector-integrated">발달종합예술학교</a>
-          <a role="menuitem" href="#sector-medical">의료기반 대안학교</a>
-          <a role="menuitem" href="#horticulture">쉼 해방 프로젝트</a>
-          <a role="menuitem" href="#contact">문의</a>
-        </div>
-      </div>
-    </nav>
+<nav id="rc-nav" aria-label="주요 메뉴">
+  <div class="rc-nav-inner">
+    <!-- 브랜드는 왼쪽 -->
+    <a href="#home" class="rc-brand">
+      <img src="images/logo.jpg" alt="RAINBOW 로고" />RAINBOW ARTS CENTER
+    </a>
+
+    <!-- 토글은 오른쪽 -->
+    <button id="rc-toggle" aria-expanded="false" aria-controls="rc-links" aria-label="메뉴 열기">≡</button>
+
+    <!-- 드롭다운 메뉴 -->
+    <div id="rc-links" class="rc-links" role="menubar">
+      <a role="menuitem" href="#sector-intro">예술센터 소개</a>
+      <a role="menuitem" href="#music-therapy">음악치료 프로그램</a>
+      <a role="menuitem" href="#sector-ent">별별 엔터테인먼트</a>
+      <a role="menuitem" href="#sector-integrated">발달종합예술학교</a>
+      <a role="menuitem" href="#sector-medical">의료기반 대안학교</a>
+      <a role="menuitem" href="#horticulture">쉼 해방 프로젝트</a>
+      <a role="menuitem" href="#contact">문의</a>
+    </div>
+  </div>
+</nav>
+
 
     <!-- Intro -->
     <section class="rc-hero rc-section" id="home" aria-label="인트로">
