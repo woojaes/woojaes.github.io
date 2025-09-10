@@ -114,93 +114,58 @@
     /* ===== Contact ===== */
     .rc .rc-actions-row { list-style:none; display:flex; gap:.6rem; margin-top:.8rem; }
     .rc .rc-btn { display:inline-block; padding:.7rem 1rem; border-radius:10px; border:1px solid var(--rc-border); background:#111; color:#fff; font-weight:700; }
-#rc-links a {
-  border: none !important;
-  box-shadow: none !important;
-}
-.rc a,
-.rc a:visited {
+#rc-links a { border: none !important; box-shadow: none !important; }
+.rc a, .rc a:visited {
   border: none !important;
   box-shadow: none !important;
   text-decoration: none !important;
-/* === Safari 전용으로도 잘 먹는 드롭다운 고정 === */
-.rc #rc-nav .rc-nav-inner { 
-  display:flex; 
-  align-items:center; 
-  gap:.5rem; 
-  flex-wrap: nowrap; 
-  min-width: 0;              /* Safari flex 수축 허용 */
 }
 
-/* 기본 링크 컨테이너: 가로 스크롤/퍼짐 방지 */
-.rc #rc-links { 
+/* Safari flex 수축/폭 계산 보정 */
+.rc #rc-nav .rc-nav-inner{
+  display:flex; align-items:center; gap:.5rem;
+  flex-wrap: nowrap; min-width:0;
+}
+
+/* 기본 링크 컨테이너 */
+.rc #rc-links{
   white-space: nowrap;
   overflow-x: hidden;
-  min-width: 0;              /* 자식 수축 허용 */
+  min-width: 0;
 }
 
-/* 토글 열렸을 때: 드롭다운 너비를 "내용만큼" + 최대폭 제한 */
+/* 토글 open 시 드롭다운 폭: 내용만큼 + 화면 캡 */
 @media (max-width:1180px){
   .rc #rc-nav.rc-open #rc-links{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:.35rem;
-    width: max-content;                /* 내용 너비만큼만 */
-    max-width: min(92vw, 420px);       /* 화면 넘어가지 않게 캡 */
-  }
-}
-
-/* 각 메뉴 아이템: 한 줄 고정 + 넘치면 말줄임표 */
-.rc #rc-links a{
-  display: inline-flex;
-  align-items: center;
-  padding: .55rem .9rem;
-  border-radius: 12px;
-  white-space: nowrap;                 /* 줄바꿈 금지 */
-  min-width: 0;                        /* flex 수축 허용 (Safari 핵심) */
-  max-width: 100%;                     /* 부모 캡 안에서만 */
-  overflow: hidden;
-  text-overflow: ellipsis;             /* 너무 길면 … 로 처리 */
-}
-
-#site-nav .nav-links a{
-  white-space: nowrap !important;
-}
-/* 1) 사파리에서 드롭다운이 왼쪽까지 퍼지는 것 방지
-      - open 상태일 때 링크 묶음이 '내용만큼(inline-flex)'만 차지하게 */
-@media (max-width:1180px){
-  .rc #rc-nav.rc-open #rc-links{
-    display: inline-flex;               /* 핵심: inline-flex → 내용 너비만큼만 */
+    display: inline-flex;               /* 핵심 */
     flex-direction: column;
     align-items: flex-end;
     gap: .35rem;
     width: auto;
-    max-width: 92vw;                    /* 화면 밖으로는 못 나가게 */
+    max-width: 92vw;
   }
 }
 
+/* 메뉴 아이템: 한 줄 + 말줄임 (한글 쪼개기 방지) */
 .rc #rc-links a{
-  display: inline-flex;
-  align-items: center;
-  padding: .55rem .9rem;
-  border-radius: 12px;
+  display:inline-flex; align-items:center;
+  padding:.55rem .9rem; border-radius:12px;
 
-  white-space: nowrap !important;       /* 줄바꿈 금지(최우선) */
-  word-break: keep-all !important;      /* 한글 단어 중간 쪼개기 금지 */
-  overflow-wrap: normal !important;     /* 줄바꿈 힌트 해제 */
-  word-wrap: normal !important;         /* 레거시 해제 */
-  -webkit-hyphens: none !important;     /* 하이픈 끄기 */
-  hyphens: none !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
+  -webkit-hyphens: none !important; hyphens: none !important;
 
-  min-width: 0;                        
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;             
+  min-width:0; max-width:100%;
+  overflow:hidden; text-overflow:ellipsis;
 }
 
-
+/* 외부 템플릿 강제 wrap 무력화 */
 #site-nav .nav-links a{ white-space: nowrap !important; }
+
+/* iOS Safari가 글자 임의 확대하는 것 방지 */
+html { -webkit-text-size-adjust: 100%; }
   </style>
 </head>
 <body class="rc">
