@@ -138,6 +138,25 @@
       min-width:0; max-width:100%; overflow:hidden; text-overflow:ellipsis;
     }
     #site-nav .nav-links a{ white-space:nowrap !important; } /* 외부 템플릿 wrap 무력화 */
+
+    @media (max-width:1180px){
+  .rc #rc-nav.rc-open #rc-links{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:.35rem;
+
+    position:absolute;
+    top:calc(100% + 10px); /* ← 여기! 원래 top:100%인데 +10px 띄움 */
+    right:0;
+
+    background:#fff;
+    border-radius:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+    padding:.6rem;
+    max-width:92vw;
+  }
+}
   </style>
 </head>
 <body class="rc">
@@ -311,7 +330,7 @@
         </header>
         <div class="rc-section-body" style="margin-top:14px;">
           <article class="rc-card">
-            <h2>발달장애 예술학교</h2>
+            <h>발달장애 예술학교</h2>
             <p style="color:var(--rc-muted);">국내 유일 의료형 통합예술치료 교육기관. 임상 전문가×예술 전문가 다학제 시스템으로 <strong>생애주기 맞춤</strong> 재능 발굴과 성장을 지원.</p>
 
             <h3 id="dept-music" style="margin-top:10px;">음악학과</h3>
