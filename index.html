@@ -200,12 +200,34 @@
   max-width: 840px;
   padding: 40px 30px;
   box-shadow: 0 10px 26px rgba(0,0,0,.10);
-  color: #ffffff;            /* 본문색 */
+  color: #000000;            /* 본문색 */
   font-weight: 600;       /* 살짝 굵게 */
   line-height: 1.65;
 }
 
+/* HERO 소개 박스 */
+.hero-intro {
+  margin: 18px auto 0;
+  max-width: 860px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  color: #222;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.65;
+  text-align: center;
+}
 
+/* 반응형 - 모바일에서 간격 축소 */
+@media (max-width: 520px) {
+  .hero-intro {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -240,15 +262,13 @@
 </a>
 
       </p>
-      <p class="hero-intro">
-  레인보우 예술센터는 서울특별시 어린이병원 안에 위치한 문화·예술·치유 복합공간입니다.
-  발달장애 아동과 가족, 지역사회가 예술로 연결되고 성장하도록
-  음악·미술·무용·심리상담 등 통합 프로그램과 공연·전시를 제공합니다.
-</p>
+
     </div>
   </header>
 
   <main>
+
+    <p class="hero-intro"> 레인보우 예술센터는 서울특별시 어린이병원 안에 위치한 문화·예술·치유 복합공간입니다. 발달장애 아동과 가족, 지역사회가 예술로 연결되고 성장하도록 음악·미술·무용·심리상담 등 통합 프로그램과 공연·전시를 제공합니다. </p>
 
     <!-- 1. 예술치료교육사업 -->
     <section id="edu" aria-labelledby="t-edu">
