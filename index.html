@@ -221,13 +221,55 @@
   text-align: center;
 }
 
-/* 반응형 - 모바일에서 간격 축소 */
-@media (max-width: 520px) {
-  .hero-intro {
-    padding: 12px 14px;
-    font-size: 0.95rem;
-  }
+.btn {
+  display: inline-block;
+  padding: 14px 28px; /* 버튼 자체 크기 확대 */
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.5rem;   /* 글자 크기 ↑ */
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  transition: all 0.25s ease;
 }
+.audio-controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#playPauseBtn {
+  font-size: 2.8rem;                /* 아이콘 크기 */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;               /* 완전 동그랗게 */
+  border: none;
+  cursor: pointer;
+
+  /* 예쁜 초록색 그라데이션 */
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color: #fff;
+
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+}
+
+#playPauseBtn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+#playPauseBtn:active {
+  transform: scale(0.95);
+}
+
+#playPauseBtn.pause {
+  font-size: 3.2rem;       /* 일시정지 아이콘만 살짝 키움 */
+  letter-spacing: -4px;    /* ⏸ 폭 좁은 거 보정 */
+}
+
   </style>
 </head>
 <body>
@@ -260,7 +302,14 @@
 <a class="hospital-chip" href="https://childhosp.seoul.go.kr/" target="_blank" rel="noopener">
   #서울특별시 어린이병원
 </a>
+<br>
+<!-- hero 안에 원하는 위치 -->
+<div class="audio-controls">
+  <button id="playPauseBtn">▶</button>
+  <audio id="bgm" src="rainbow.mp3"></audio>
+</div>
 
+</header>
       </p>
 
     </div>
@@ -393,7 +442,7 @@
       <div class="wrap">
         <h2 id="t-ent" class="section-title">4. 미래엔터테인먼트</h2>
         <figure class="media ratio-16x9" style="margin-top:14px;">
-  <img src="images/ent_main.JPG" alt="미래엔터테인먼트 대표 이미지">
+  <img src="images/ent_main.jpg" alt="미래엔터테인먼트 대표 이미지">
 </figure>
 
         <div class="grid" style="margin-top:14px;">
@@ -500,7 +549,7 @@
       <div class="wrap">
         <h2 id="t-social" class="section-title">8. 사회사업 프로젝트</h2>
         <figure class="media ratio-3x2" style="margin-top:14px;">
-  <img src="images/social_main.JPG" alt="사회사업 대표 이미지">
+  <img src="images/social_main.jpg" alt="사회사업 대표 이미지">
 </figure>
         <div class="grid" style="margin-top:14px;">
           <div class="card">
@@ -593,7 +642,22 @@
         });
       });
     })();
+
+
+const btn = document.getElementById("playPauseBtn");
+const audio = document.getElementById("bgm");
+
+btn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = "⏸";
+    btn.classList.add("pause");
+  } else {
+    audio.pause();
+    btn.textContent = "▶";
+    btn.classList.remove("pause");
+  }
+});
   </script>
 </body>
 </html>
-
