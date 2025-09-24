@@ -270,6 +270,39 @@
   letter-spacing: -4px;    /* ⏸ 폭 좁은 거 보정 */
 }
 
+.store-cta{
+  margin-left:.5rem;
+  padding:.45rem .9rem;
+  border-radius:999px;
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color:#fff; font-weight:800; font-size:.92rem;
+  box-shadow:0 6px 14px rgba(0,0,0,.18);
+  border:1px solid rgba(0,0,0,.05);
+  transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+  white-space:nowrap;
+}
+.store-cta:hover{ transform: translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.22); }
+.store-cta:active{ transform: translateY(0); box-shadow:0 5px 12px rgba(0,0,0,.18); }
+
+/* 모바일에서 메뉴 토글 옆 간격/줄바꿈 대비 */
+@media (max-width:1180px){
+  .nav-inner{ gap:.4rem; }
+}
+
+.fab-store{
+  position:fixed; right:16px; bottom:18px; z-index:1100;
+  display:none; align-items:center; justify-content:center;
+  height:56px; padding:0 18px; border-radius:999px;
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  color:#fff; font-weight:900; letter-spacing:.02em;
+  box-shadow:0 12px 28px rgba(0,0,0,.28);
+  border:1px solid rgba(0,0,0,.05);
+}
+@media (max-width:900px){
+  .fab-store{ display:inline-flex; }
+}
+.fab-store:hover{ transform:translateY(-1px); box-shadow:0 14px 32px rgba(0,0,0,.32); }
+.fab-store:active{ transform:translateY(0); }
   </style>
 </head>
 <body>
@@ -279,6 +312,12 @@
     <div class="nav-inner">
       <a class="brand" href="#home">🌈 <strong>레인보우 예술센터</strong></a>
       <button id="toggle" aria-expanded="false" aria-controls="links" aria-label="메뉴 열기">≡</button>
+  
+
+<!-- ✅ 네이버 스토어 고정 버튼 -->
+<a class="store-cta" href="https://smartstore.naver.com/yourstore" target="_blank" rel="noopener">
+  스토어
+</a>
       <div id="links" role="menubar">
         <a role="menuitem" href="#edu">예술치료</a>
         <a role="menuitem" href="#school">발달장애 예술학교</a>
@@ -506,7 +545,7 @@
       <div class="wrap">
         <h2 id="t-culture" class="section-title">6. 문화예술사업</h2>
 <figure class="media ratio-16x9" style="margin-top:14px;">
-  <img src="images/culture_main.jpg" alt="문화예술사업 대표 이미지">
+  <img src="images/culture_main.JPG" alt="문화예술사업 대표 이미지">
 </figure>
         <div class="grid" style="margin-top:14px;">
           <div class="card"><h3>치유공연</h3><p>음악과 무대를 통해 정서적 치유를 경험할 수 있는 공연 프로그램입니다. 관객과 참여자가 함께 예술적 울림을 나누며 정서적 회복을 이끕니다.</p></div>
@@ -593,8 +632,8 @@
         </div>
       </div>
     </section>
-
   </main>
+
   <script>
     (function(){
       const nav = document.getElementById('nav');
@@ -661,4 +700,3 @@ btn.addEventListener("click", () => {
   </script>
 </body>
 </html>
-
