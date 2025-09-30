@@ -122,8 +122,78 @@
     /* Back-to-top */
     .to-top{ position:fixed; right:14px; bottom:18px; z-index:1200; display:none; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; border:1px solid rgba(0,0,0,.08); background:#fff; box-shadow:0 10px 26px rgba(0,0,0,.18); font-weight:900; }
     .to-top.show{ display:flex; }
+/* 기존 .hero의 background-image 줄은 지워도 되고 남겨도 됨(포스터 대체로 사용 시 제거 권장) */
+.hero{
+  position:relative; 
+  min-height:64vh; 
+  display:grid; 
+  place-items:center; 
+  text-align:center;
+  /* background-image: url("images/pic01.jpg");  ← 이 줄은 지워주세요 */
+  background-position:center; 
+  background-size:cover; 
+  background-repeat:no-repeat; 
+  box-shadow: inset 0 -120px 160px rgba(0,0,0,.25);
+}
 
+/* 비디오 자체를 배경으로 깔기 */
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* 레이어 순서 조정: 비디오(0) < 그라데이션(1) < 내용(2) */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.1), transparent 30%, rgba(0,0,0,.35));
+  pointer-events:none;
+  z-index:1;
+}
+.hero-inner{ position:relative; z-index:2; }
+.intro-video-band{
+  position: relative;
+  margin: 18px auto 0;
+  max-width: 860px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  text-align: center;
+  min-height: 280px; /* 높이는 필요에 따라 조정 */
+}
+
+.intro-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.intro-overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.4); /* 글씨 가독성 위해 어둡게 */
+  z-index: 1;
+}
+
+.intro-text{
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.8;
+  padding: 32px 20px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
   </style>
+
+  
 </head>
 <body>
 
@@ -146,22 +216,39 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="home" aria-label="인트로">
-    <div class="hero-inner wrap reveal">
-      <h1>RAINBOW ARTS CENTER</h1>
-      <p class="lead">예술로 꿈꾸고 마음껏 행복해지자</p>
-      <a class="hospital-chip" href="https://childhosp.seoul.go.kr/" target="_blank" rel="noopener">#서울특별시 어린이병원</a>
-      <div class="audio-controls" aria-label="배경음악 제어">
-        <button id="playPauseBtn" aria-controls="bgm" aria-pressed="false" aria-label="재생">▶</button>
-        <audio id="bgm" src="rainbow.mp3"></audio>
-      </div>
+ <!-- HERO -->
+<header class="hero" id="home" aria-label="인트로">
+
+  <div class="hero-inner wrap reveal">
+    <h1>RAINBOW ARTS CENTER</h1>
+    <p class="lead">예술로 꿈꾸고 마음껏 행복해지자</p>
+    <a class="hospital-chip" href="https://childhosp.seoul.go.kr/" target="_blank" rel="noopener">#서울특별시 어린이병원</a>
+    <div class="audio-controls" aria-label="배경음악 제어">
+      <button id="playPauseBtn" aria-controls="bgm" aria-pressed="false" aria-label="재생">▶</button>
+      <audio id="bgm" src="rainbow.mp3"></audio>
     </div>
-  </header>
+  </div>
+</header>
+<main>
 
-  <main>
-    <p class="hero-intro wrap reveal">레인보우 예술센터는 서울특별시 어린이병원 안에 위치한 문화·예술·치유 복합공간입니다. 발달장애 아동과 가족, 지역사회가 예술로 연결되고 성장하도록 음악·미술·무용·심리상담 등 통합 프로그램과 공연·전시를 제공합니다.</p>
-
+  <section class="intro-video-band wrap reveal" aria-label="센터 소개">
+  <video
+    id="introVideo"
+    class="intro-video"
+    src="story.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="images/edu_main.jpg"
+  ></video>
+  <div class="intro-overlay"></div>
+  <div class="intro-text">
+    레인보우 예술센터는 서울특별시 어린이병원 안에 위치한 문화·예술·치유 복합공간입니다. 
+    발달장애 아동과 가족, 지역사회가 예술로 연결되고 성장하도록 음악·미술·무용·심리상담 등 
+    통합 프로그램과 공연·전시를 제공합니다.
+  </div>
+</section>
     <!-- 1. 예술치료교육사업 -->
     <section id="edu" aria-labelledby="t-edu" class="reveal">
       <div class="wrap">
@@ -177,7 +264,7 @@
           <div class="grid" style="margin-top:12px;">
             <div class="card" tabindex="0">
               <h3>TOM (마음읽기 사회기술훈련)</h3>
-              <p>음악과 역할극을 활용하여 아동이 타인의 마음을 이해하고 공감하는 능력을 기릅니다. 사회적 상황을 재현하며 또래 관계 기술을 연습하고, 자연스럽게 상호작용을 배울 수 있습니다. 집단 안에서 자신감을 형성하는 데 도움을 줍니다.</p>
+              <p>음악과 역할극을 활용하여 아동이 타인의 마음을 이해하고 공감하는 능력을 기릅니다. 사회적 상황을  재현하며 또래 관계 기술을 연습하고, 자연스럽게 상호작용을 배울 수 있습니다. 집단 안에서 자신감을 형성하는 데 도움을 줍니다.</p>
             </div>
             <div class="card" tabindex="0">
               <h3>정서코칭 (RULER)</h3>
@@ -486,6 +573,17 @@
       }
     });
   }
+
+  const introVideo = document.getElementById('introVideo');
+if(introVideo){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReduced){ introVideo.pause(); introVideo.removeAttribute('autoplay'); }
+
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState==='hidden'){ introVideo.pause(); }
+    else if(!prefersReduced){ introVideo.play().catch(()=>{}); }
+  });
+}
   </script>
 </body>
 </html>
